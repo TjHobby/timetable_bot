@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "redis.redis-host",
+      "type": "java.lang.String",
+      "description": "Description for redis.redis-host."
+    },
+    {
+      "name": "telegram.bot-username",
+      "type": "java.lang.String",
+      "description": "Description for telegram.bot-username."
+    }
+  ]
+}
