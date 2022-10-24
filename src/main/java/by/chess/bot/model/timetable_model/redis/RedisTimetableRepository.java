@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -38,11 +41,23 @@ public class RedisTimetableRepository implements TimetableRepository {
   @Override
   public void saveTimetable(TimetableEntity entity) {
     String jsonEntity = gson.toJson(entity);
-    template.opsForHash().put(REDIS_COLLECTION, entity.getTimetableKey(), jsonEntity);
+    rewriteTimetable(entity.getTimetableKey(), jsonEntity);
   }
 
   @Override
   public void clearRepository() {
     template.delete(REDIS_COLLECTION);
+  }
+
+  private void rewriteTimetable(String key, String jsonValue) {
+    template.execute(
+        (RedisCallback)
+            connection -> {
+              connection.multi();
+              template.opsForHash().delete(REDIS_COLLECTION, key);
+              template.opsForHash().put(REDIS_COLLECTION, key, jsonValue);
+              connection.exec();
+              return null;
+            });
   }
 }
