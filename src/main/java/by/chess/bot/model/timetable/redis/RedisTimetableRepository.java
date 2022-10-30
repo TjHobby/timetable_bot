@@ -1,13 +1,11 @@
-package by.chess.bot.model.timetable_model.redis;
+package by.chess.bot.model.timetable.redis;
 
-import by.chess.bot.model.timetable_model.TimetableRepository;
-import by.chess.bot.model.timetable_model.entity.TimetableEntity;
+import by.chess.bot.model.timetable.TimetableRepository;
+import by.chess.bot.model.timetable.entity.Timetable;
 import com.google.gson.Gson;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,21 +23,21 @@ public class RedisTimetableRepository implements TimetableRepository {
   }
 
   @Override
-  public TimetableEntity getTimetable(String key) {
+  public Timetable getTimetable(String key) {
     String jsonEntity = String.valueOf(template.opsForHash().get(REDIS_COLLECTION, key));
-    return gson.fromJson(jsonEntity, TimetableEntity.class);
+    return gson.fromJson(jsonEntity, Timetable.class);
   }
 
   @Override
-  public List<TimetableEntity> getAllTimetables() {
+  public List<Timetable> getAllTimetables() {
     Map<Object, Object> timetables = template.opsForHash().entries(REDIS_COLLECTION);
     return timetables.values().stream()
-        .map(o -> gson.fromJson((String) o, TimetableEntity.class))
+        .map(o -> gson.fromJson((String) o, Timetable.class))
         .collect(Collectors.toList());
   }
 
   @Override
-  public void saveTimetable(TimetableEntity entity) {
+  public void saveTimetable(Timetable entity) {
     String jsonEntity = gson.toJson(entity);
     rewriteTimetable(entity.getTimetableKey(), jsonEntity);
   }
@@ -51,7 +49,7 @@ public class RedisTimetableRepository implements TimetableRepository {
 
   private void rewriteTimetable(String key, String jsonValue) {
     template.execute(
-        (RedisCallback)
+        (RedisCallback<String>)
             connection -> {
               connection.multi();
               template.opsForHash().delete(REDIS_COLLECTION, key);

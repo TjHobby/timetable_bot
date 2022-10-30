@@ -1,7 +1,7 @@
 package by.chess.bot.service;
 
-import by.chess.bot.model.timetable_model.TimetableRepository;
-import by.chess.bot.model.timetable_model.entity.TimetableEntity;
+import by.chess.bot.model.timetable.TimetableRepository;
+import by.chess.bot.model.timetable.entity.Timetable;
 import by.chess.bot.service.parser.TimetableProvider;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +26,7 @@ public class UpdateTimetableService {
   @Scheduled(fixedRate = 15, timeUnit = TimeUnit.MINUTES)
   @Async
   public void updateTimetable() {
-    List<TimetableEntity> timetables = timetableProvider.getTimetables();
+    List<Timetable> timetables = timetableProvider.getTimetables();
     timetables.forEach(repository::saveTimetable);
   }
 }

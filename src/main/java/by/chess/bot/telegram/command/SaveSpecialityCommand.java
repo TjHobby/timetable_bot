@@ -1,7 +1,7 @@
 package by.chess.bot.telegram.command;
 
-import by.chess.bot.model.user_model.UserRepository;
-import by.chess.bot.model.user_model.entity.UserEntity;
+import by.chess.bot.model.user.UserRepository;
+import by.chess.bot.model.user.entity.User;
 import by.chess.bot.service.GetTimetableInfoService;
 import by.chess.bot.telegram.keyboard.GetTimetableKeyboard;
 import lombok.AccessLevel;
@@ -35,7 +35,7 @@ public class SaveSpecialityCommand implements ReplyCommand {
   }
 
   private void updateUser(long chatId, String data) {
-    UserEntity entity = userRepository.getUserById(chatId);
+    User entity = userRepository.getUserById(chatId);
     entity.setSpeciality(data);
     userRepository.save(entity);
   }

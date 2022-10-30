@@ -1,7 +1,7 @@
 package by.chess.bot.service.parser.google.table_parser;
 
-import by.chess.bot.model.timetable_model.entity.TimetableEntity;
-import by.chess.bot.model.timetable_model.entity.TimetableEntityFactory;
+import by.chess.bot.model.timetable.entity.Timetable;
+import by.chess.bot.model.timetable.entity.TimetableFactory;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multiset;
 import java.util.LinkedList;
@@ -22,30 +22,30 @@ public abstract class TableParser {
 
   protected abstract int getTableWidth();
 
-  public List<TimetableEntity> parseTimetables() {
-    List<TimetableEntity> timetables = new LinkedList<>();
+  public List<Timetable> parseTimetables() {
+    List<Timetable> timetables = new LinkedList<>();
     for (int i = 0; i < getTableWidth(); i++) {
       String speciality = getSpeciality(i);
       if (StringUtils.isBlank(speciality)) {
         continue;
       }
-      List<TimetableEntity> timetablesByDays = parseSingleSpecialityTimetable(i);
-      List<TimetableEntity> resultTimetablesBySpeciality =
+      List<Timetable> timetablesByDays = parseSingleSpecialityTimetable(i);
+      List<Timetable> resultTimetablesBySpeciality =
           setSpecialityToTimetables(timetablesByDays, speciality);
       timetables.addAll(resultTimetablesBySpeciality);
     }
     return timetables;
   }
 
-  private List<TimetableEntity> parseSingleSpecialityTimetable(int col) {
-    List<TimetableEntity> timetables = new LinkedList<>();
+  private List<Timetable> parseSingleSpecialityTimetable(int col) {
+    List<Timetable> timetables = new LinkedList<>();
     ArrayListMultimap<String, Pair<String, String>> lessonsByDaysAndSpeciality =
         collectLessonsByDaysAndSpeciality(col);
     Multiset<String> daysOfWeek = lessonsByDaysAndSpeciality.keys();
     daysOfWeek.forEach(
         day -> {
-          TimetableEntity timetable =
-              new TimetableEntityFactory().getTimetable(day, lessonsByDaysAndSpeciality);
+          Timetable timetable =
+              new TimetableFactory().getTimetable(day, lessonsByDaysAndSpeciality);
           timetables.add(timetable);
         });
     return timetables;
@@ -72,8 +72,8 @@ public abstract class TableParser {
     return row.get(index).trim();
   }
 
-  private List<TimetableEntity> setSpecialityToTimetables(
-      List<TimetableEntity> timetables, String speciality) {
+  private List<Timetable> setSpecialityToTimetables(
+      List<Timetable> timetables, String speciality) {
     timetables.forEach(timetableEntity -> timetableEntity.setSpeciality(speciality));
     return timetables;
   }

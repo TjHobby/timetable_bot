@@ -1,7 +1,7 @@
 package by.chess.bot.telegram.command;
 
 import by.chess.bot.misc.DayOfWeek;
-import by.chess.bot.model.timetable_model.entity.TimetableEntity;
+import by.chess.bot.model.timetable.entity.Timetable;
 import by.chess.bot.service.GetTimetableInfoService;
 import by.chess.bot.telegram.keyboard.GetTimetableKeyboard;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public class ReplyTimetableCommand implements ReplyCommand {
   public BotApiMethod<?> handleMessage(long chatId, String data) {
     SendMessage reply = new SendMessage();
     reply.setChatId(chatId);
-    TimetableEntity timetable = timetableInfoService.getTimetable(chatId, DayOfWeek.parse(data));
+    Timetable timetable = timetableInfoService.getTimetable(chatId, DayOfWeek.parse(data));
     reply.setText(timetable.toString());
     reply.setReplyMarkup(new GetTimetableKeyboard().getReplyKeyboard());
     return reply;

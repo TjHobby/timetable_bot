@@ -1,6 +1,6 @@
 package by.chess.bot.destroying;
 
-import by.chess.bot.model.timetable_model.TimetableRepository;
+import by.chess.bot.model.timetable.TimetableRepository;
 import javax.annotation.PreDestroy;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

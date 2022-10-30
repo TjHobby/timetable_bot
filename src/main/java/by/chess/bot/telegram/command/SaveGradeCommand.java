@@ -1,8 +1,8 @@
 package by.chess.bot.telegram.command;
 
 import by.chess.bot.config.MessagesConfig;
-import by.chess.bot.model.user_model.UserRepository;
-import by.chess.bot.model.user_model.entity.UserEntity;
+import by.chess.bot.model.user.UserRepository;
+import by.chess.bot.model.user.entity.User;
 import by.chess.bot.service.GetTimetableInfoService;
 import by.chess.bot.telegram.keyboard.ChangeSpecialityKeyboard;
 import lombok.AccessLevel;
@@ -38,9 +38,9 @@ public class SaveGradeCommand implements ReplyCommand {
   }
 
   private void updateUser(long chatId, String data) {
-    UserEntity entity = userRepository.getUserById(chatId);
+    User entity = userRepository.getUserById(chatId);
     if (entity == null) {
-      entity = new UserEntity();
+      entity = new User();
       entity.setId(chatId);
     }
     entity.setGrade(data);

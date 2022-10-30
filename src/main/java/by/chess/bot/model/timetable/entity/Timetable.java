@@ -1,4 +1,4 @@
-package by.chess.bot.model.timetable_model.entity;
+package by.chess.bot.model.timetable.entity;
 
 import by.chess.bot.misc.DayOfWeek;
 import java.util.LinkedHashMap;
@@ -12,13 +12,13 @@ import org.apache.commons.lang3.tuple.Pair;
 @AllArgsConstructor
 @Data
 @Builder
-public class TimetableEntity {
+public class Timetable {
   private String grade;
   private String speciality;
   private DayOfWeek dayOfWeek;
   private LinkedHashMap<String, String> lessons;
 
-  public TimetableEntity() {
+  public Timetable() {
     this.lessons = new LinkedHashMap<>();
   }
 

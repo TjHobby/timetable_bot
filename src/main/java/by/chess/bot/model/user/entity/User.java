@@ -1,4 +1,4 @@
-package by.chess.bot.model.user_model.entity;
+package by.chess.bot.model.user.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserEntity {
+public class User {
   @Id long id;
   @Column String grade;
   @Column String speciality;
