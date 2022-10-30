@@ -1,6 +1,8 @@
 package by.chess.bot.service.parser.faculty_page.util;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import lombok.AccessLevel;
@@ -15,7 +17,7 @@ public class DateUtils {
   final LocalDate today;
 
   public DateUtils() {
-    this.today = LocalDate.now();
+    this.today = ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDate();
   }
 
   public String getLastDayOfWeekString() {

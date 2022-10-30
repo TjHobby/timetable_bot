@@ -1,11 +1,14 @@
 package by.chess.bot.service.parser.google.table_parser;
 
+import by.chess.bot.misc.DayOfWeek;
 import by.chess.bot.model.timetable.entity.Timetable;
 import by.chess.bot.model.timetable.entity.TimetableFactory;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multiset;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -54,9 +57,12 @@ public abstract class TableParser {
   private ArrayListMultimap<String, Pair<String, String>> collectLessonsByDaysAndSpeciality(
       int specialityCol) {
     ArrayListMultimap<String, Pair<String, String>> result = ArrayListMultimap.create();
+    List<String> daysOfWeek =
+        Arrays.stream(DayOfWeek.values()).map(DayOfWeek::getFullName).collect(Collectors.toList());
     for (List<String> row : tableContent) {
-      final String dayOfWeek = getDayOfWeek(row);
-      if (dayOfWeek.isBlank()) {
+      String dayOfWeek = getDayOfWeek(row);
+      if (dayOfWeek.isBlank()
+          || daysOfWeek.stream().noneMatch(day -> day.equalsIgnoreCase(dayOfWeek))) {
         continue;
       }
       result.put(dayOfWeek, Pair.of(getTime(row), getLesson(row, specialityCol)));
