@@ -7,6 +7,7 @@ import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,13 +22,13 @@ public class GetTimetableInfoService {
 
   public Timetable getTimetable(long chatId, DayOfWeek day) {
     User user = userRepository.getUserById(chatId);
-    String key = Timetable.getTimetableKey(user.getGrade(), user.getSpeciality(), day);
-    return timetableRepository.getTimetable(key);
+    return timetableRepository.findByGradeAndSpecialityAndDayOfWeek(
+        user.getGrade(), user.getSpeciality(), day);
   }
 
   public List<String> getGrades() {
-    List<Timetable> timetables = timetableRepository.getAllTimetables();
-    return timetables.stream()
+    Iterable<Timetable> timetables = timetableRepository.findAll();
+    return StreamSupport.stream(timetables.spliterator(), false)
         .map(Timetable::getGrade)
         .distinct()
         .collect(Collectors.toList());
@@ -39,8 +40,8 @@ public class GetTimetableInfoService {
   }
 
   public List<String> getSpecialitiesByGrade(String grade) {
-    List<Timetable> timetables = timetableRepository.getAllTimetables();
-    return timetables.stream()
+    Iterable<Timetable> timetables = timetableRepository.findAll();
+    return StreamSupport.stream(timetables.spliterator(), false)
         .filter(timetableEntity -> timetableEntity.getGrade().equals(grade))
         .map(Timetable::getSpeciality)
         .distinct()

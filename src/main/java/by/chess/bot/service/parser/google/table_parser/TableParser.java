@@ -72,8 +72,7 @@ public abstract class TableParser {
     return row.get(index).trim();
   }
 
-  private List<Timetable> setSpecialityToTimetables(
-      List<Timetable> timetables, String speciality) {
+  private List<Timetable> setSpecialityToTimetables(List<Timetable> timetables, String speciality) {
     timetables.forEach(timetableEntity -> timetableEntity.setSpeciality(speciality));
     return timetables;
   }

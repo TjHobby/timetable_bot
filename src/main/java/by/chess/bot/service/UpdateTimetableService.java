@@ -27,6 +27,6 @@ public class UpdateTimetableService {
   @Async
   public void updateTimetable() {
     List<Timetable> timetables = timetableProvider.getTimetables();
-    timetables.forEach(repository::saveTimetable);
+    repository.saveAll(timetables);
   }
 }

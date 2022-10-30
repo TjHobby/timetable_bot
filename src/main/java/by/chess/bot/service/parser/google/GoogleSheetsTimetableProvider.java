@@ -40,9 +40,12 @@ public class GoogleSheetsTimetableProvider implements TimetableProvider {
     return timetables;
   }
 
-  private List<Timetable> setGradesToTimetables(
-      List<Timetable> timetables, String grade) {
-    timetables.forEach(timetable -> timetable.setGrade(grade));
+  private List<Timetable> setGradesToTimetables(List<Timetable> timetables, String grade) {
+    timetables.forEach(
+        timetable -> {
+          timetable.setGrade(grade);
+          timetable.assignId();
+        });
     return timetables;
   }
 }

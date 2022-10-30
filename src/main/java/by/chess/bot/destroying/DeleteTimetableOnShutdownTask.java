@@ -15,6 +15,6 @@ public class DeleteTimetableOnShutdownTask {
 
   @PreDestroy
   public void onShutdown() {
-    timetableRepository.clearRepository();
+    timetableRepository.deleteAll();
   }
 }

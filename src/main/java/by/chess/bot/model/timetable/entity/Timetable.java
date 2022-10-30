@@ -1,33 +1,35 @@
 package by.chess.bot.model.timetable.entity;
 
 import by.chess.bot.misc.DayOfWeek;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 @AllArgsConstructor
-@Data
 @Builder
-public class Timetable {
-  private String grade;
-  private String speciality;
-  private DayOfWeek dayOfWeek;
-  private LinkedHashMap<String, String> lessons;
+@Getter
+@Setter
+@RedisHash("Timetable")
+public class Timetable implements Serializable {
+
+  private static final long serialVersionUID = -2421290151039598746L;
+  private String id;
+  @Indexed private String grade;
+  @Indexed private String speciality;
+  @Indexed private DayOfWeek dayOfWeek;
+  @Indexed private Map<String, String> lessons;
 
   public Timetable() {
     this.lessons = new LinkedHashMap<>();
-  }
-
-  public static String getTimetableKey(String grade, String speciality, DayOfWeek day) {
-    return grade + "_" + speciality + "_" + day.getFullName();
-  }
-
-  public String getTimetableKey() {
-    return getTimetableKey(grade, speciality, dayOfWeek);
   }
 
   public void addLessons(List<Pair<String, String>> lessons) {
@@ -38,6 +40,10 @@ public class Timetable {
     if (!lesson.getValue().isBlank()) {
       lessons.put(lesson.getKey(), lesson.getValue());
     }
+  }
+
+  public void assignId() {
+    this.id = grade + "_" + speciality + "_" + dayOfWeek.getFullName();
   }
 
   @Override
