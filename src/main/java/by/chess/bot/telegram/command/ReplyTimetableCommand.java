@@ -19,8 +19,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReplyTimetableCommand implements ReplyCommand {
   final GetTimetableInfoService timetableInfoService;
-  final List<String> supportedCommands =
-      Arrays.stream(DayOfWeek.values()).map(DayOfWeek::getAlias).collect(Collectors.toList());
+  final List<String> supportedCommands = DayOfWeek.getAliases();
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {

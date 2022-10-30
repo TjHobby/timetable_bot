@@ -1,5 +1,8 @@
 package by.chess.bot.misc;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -25,5 +28,15 @@ public enum DayOfWeek {
       }
     }
     throw new IllegalStateException(String.format("Cannot parse DayOfWeek from %s", val));
+  }
+
+  public static List<String> getFullNames() {
+    return Arrays.stream(DayOfWeek.values())
+        .map(DayOfWeek::getFullName)
+        .collect(Collectors.toList());
+  }
+
+  public static List<String> getAliases() {
+    return Arrays.stream(DayOfWeek.values()).map(DayOfWeek::getAlias).collect(Collectors.toList());
   }
 }

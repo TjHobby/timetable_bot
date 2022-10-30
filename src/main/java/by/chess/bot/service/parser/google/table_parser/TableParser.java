@@ -57,12 +57,10 @@ public abstract class TableParser {
   private ArrayListMultimap<String, Pair<String, String>> collectLessonsByDaysAndSpeciality(
       int specialityCol) {
     ArrayListMultimap<String, Pair<String, String>> result = ArrayListMultimap.create();
-    List<String> daysOfWeek =
-        Arrays.stream(DayOfWeek.values()).map(DayOfWeek::getFullName).collect(Collectors.toList());
     for (List<String> row : tableContent) {
       String dayOfWeek = getDayOfWeek(row);
       if (dayOfWeek.isBlank()
-          || daysOfWeek.stream().noneMatch(day -> day.equalsIgnoreCase(dayOfWeek))) {
+          || DayOfWeek.getFullNames().stream().noneMatch(day -> day.equalsIgnoreCase(dayOfWeek))) {
         continue;
       }
       result.put(dayOfWeek, Pair.of(getTime(row), getLesson(row, specialityCol)));
@@ -78,8 +76,7 @@ public abstract class TableParser {
     return row.get(index).trim();
   }
 
-  private List<Timetable> setSpecialityToTimetables(
-      List<Timetable> timetables, String speciality) {
+  private List<Timetable> setSpecialityToTimetables(List<Timetable> timetables, String speciality) {
     timetables.forEach(timetableEntity -> timetableEntity.setSpeciality(speciality));
     return timetables;
   }
