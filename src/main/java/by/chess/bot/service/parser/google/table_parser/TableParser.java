@@ -60,7 +60,7 @@ public abstract class TableParser {
     for (List<String> row : tableContent) {
       String dayOfWeek = getDayOfWeek(row);
       if (dayOfWeek.isBlank()
-          || DayOfWeek.getFullNames().stream().noneMatch(day -> day.equalsIgnoreCase(dayOfWeek))) {
+          || DayOfWeek.getFullNames().stream().noneMatch(day -> StringUtils.containsIgnoreCase(dayOfWeek, day))) {
         continue;
       }
       result.put(dayOfWeek, Pair.of(getTime(row), getLesson(row, specialityCol)));
