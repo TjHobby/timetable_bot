@@ -3,6 +3,7 @@ package by.chess.bot.service.parser.faculty_page;
 import by.chess.bot.config.FacultyPageConfig;
 import by.chess.bot.config.GradesConfig;
 import by.chess.bot.service.parser.faculty_page.util.DateUtils;
+import by.chess.bot.service.parser.faculty_page.util.DateUtilsFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,6 @@ public class FacultyPageParser {
   static final String LINK_TAG_NAME = "a";
   final FacultyPageConfig facultyConfig;
   final GradesConfig gradesConfig;
-  final DateUtils dateUtils;
 
   public Map<String, String> getGoogleSheetUrl() {
     Document facultyPage = getFacultyPage();
@@ -55,6 +55,7 @@ public class FacultyPageParser {
   }
 
   private String makeSectionFilterText() {
+    DateUtils dateUtils = new DateUtilsFactory().getDateUtils();
     return String.format(
         facultyConfig.getSectionDatePattern(),
         dateUtils.getFirstDayOfWeekString(),

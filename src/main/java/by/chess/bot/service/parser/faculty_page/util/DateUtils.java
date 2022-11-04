@@ -1,23 +1,19 @@
 package by.chess.bot.service.parser.faculty_page.util;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Component;
 
-@Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DateUtils {
   static final int WORKING_DAYS = 6;
   static final String DATE_PATTERN = "d MMMM";
   final LocalDate today;
 
-  public DateUtils() {
-    this.today = ZonedDateTime.now(ZoneId.of("Europe/Minsk")).toLocalDate();
+  public DateUtils(LocalDate date) {
+    this.today = date;
   }
 
   public String getLastDayOfWeekString() {

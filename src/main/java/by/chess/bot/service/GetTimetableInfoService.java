@@ -27,10 +27,7 @@ public class GetTimetableInfoService {
 
   public List<String> getGrades() {
     List<Timetable> timetables = timetableRepository.getAllTimetables();
-    return timetables.stream()
-        .map(Timetable::getGrade)
-        .distinct()
-        .collect(Collectors.toList());
+    return timetables.stream().map(Timetable::getGrade).distinct().collect(Collectors.toList());
   }
 
   public List<String> getSpecialitiesByChatId(long chatId) {

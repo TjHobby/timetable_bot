@@ -5,10 +5,8 @@ import by.chess.bot.model.timetable.entity.Timetable;
 import by.chess.bot.model.timetable.entity.TimetableFactory;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multiset;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -60,7 +58,8 @@ public abstract class TableParser {
     for (List<String> row : tableContent) {
       String dayOfWeek = getDayOfWeek(row);
       if (dayOfWeek.isBlank()
-          || DayOfWeek.getFullNames().stream().noneMatch(day -> StringUtils.containsIgnoreCase(dayOfWeek, day))) {
+          || DayOfWeek.getFullNames().stream()
+              .noneMatch(day -> StringUtils.containsIgnoreCase(dayOfWeek, day))) {
         continue;
       }
       result.put(dayOfWeek, Pair.of(getTime(row), getLesson(row, specialityCol)));
