@@ -1,8 +1,9 @@
-package by.chess.bot.telegram.command;
+package by.chess.bot.telegram.command.student;
 
 import by.chess.bot.misc.DayOfWeek;
 import by.chess.bot.model.timetable.entity.Timetable;
-import by.chess.bot.service.GetTimetableInfoService;
+import by.chess.bot.service.student.GetStudentTimetableInfoService;
+import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.GetTimetableKeyboard;
 import java.util.List;
 import lombok.AccessLevel;
@@ -16,7 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReplyTimetableCommand implements ReplyCommand {
-  final GetTimetableInfoService timetableInfoService;
+  final GetStudentTimetableInfoService timetableInfoService;
   final List<String> supportedCommands = DayOfWeek.getAliases();
 
   @Override

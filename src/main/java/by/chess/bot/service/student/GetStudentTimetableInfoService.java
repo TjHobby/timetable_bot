@@ -1,10 +1,10 @@
-package by.chess.bot.service;
+package by.chess.bot.service.student;
 
 import by.chess.bot.misc.DayOfWeek;
+import by.chess.bot.model.student.StudentRepository;
+import by.chess.bot.model.student.entity.Student;
 import by.chess.bot.model.timetable.TimetableRepository;
 import by.chess.bot.model.timetable.entity.Timetable;
-import by.chess.bot.model.user.UserRepository;
-import by.chess.bot.model.user.entity.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class GetTimetableInfoService {
+public class GetStudentTimetableInfoService {
   TimetableRepository timetableRepository;
-  UserRepository userRepository;
+  StudentRepository studentRepository;
 
   public Timetable getTimetable(long chatId, DayOfWeek day) {
-    User user = userRepository.getUserById(chatId);
-    String key = Timetable.getTimetableKey(user.getGrade(), user.getSpeciality(), day);
+    Student student = studentRepository.getStudentById(chatId);
+    String key = Timetable.getTimetableKey(student.getGrade(), student.getSpeciality(), day);
     return timetableRepository.getTimetable(key);
   }
 
@@ -31,8 +31,8 @@ public class GetTimetableInfoService {
   }
 
   public List<String> getSpecialitiesByChatId(long chatId) {
-    User user = userRepository.getUserById(chatId);
-    return getSpecialitiesByGrade(user.getGrade());
+    Student student = studentRepository.getStudentById(chatId);
+    return getSpecialitiesByGrade(student.getGrade());
   }
 
   public List<String> getSpecialitiesByGrade(String grade) {

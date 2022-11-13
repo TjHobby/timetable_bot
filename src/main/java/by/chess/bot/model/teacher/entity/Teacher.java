@@ -1,4 +1,4 @@
-package by.chess.bot.model.user.entity;
+package by.chess.bot.model.teacher.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "teachers")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class Teacher {
   @Id long id;
-  @Column String role;
+  @Column String name;
 }

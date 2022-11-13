@@ -1,7 +1,8 @@
-package by.chess.bot.telegram.command;
+package by.chess.bot.telegram.command.student;
 
 import by.chess.bot.config.MessagesConfig;
-import by.chess.bot.service.GetTimetableInfoService;
+import by.chess.bot.service.student.GetStudentTimetableInfoService;
+import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.ChangeGradeKeyboard;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChangeGradeCommand implements ReplyCommand {
-  final GetTimetableInfoService timetableInfoService;
+  final GetStudentTimetableInfoService timetableInfoService;
   final MessagesConfig messagesConfig;
   final List<String> supportedCommands = Arrays.asList("/start", "Сменить курс");
 
