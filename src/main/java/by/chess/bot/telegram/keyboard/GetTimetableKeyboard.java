@@ -14,6 +14,6 @@ public class GetTimetableKeyboard extends BaseKeyboard {
     List<String> daysOfWeek =
         Arrays.stream(DayOfWeek.values()).map(DayOfWeek::getAlias).collect(Collectors.toList());
     return prepareKeyboardWithTable(
-        Arrays.asList(daysOfWeek, Collections.singletonList("Сменить курс")));
+        Arrays.asList(daysOfWeek, Collections.singletonList("Изменить информацию")));
   }
 }

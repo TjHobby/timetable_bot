@@ -1,5 +1,6 @@
 package by.chess.bot.telegram.command.student;
 
+import by.chess.bot.config.MessagesConfig;
 import by.chess.bot.model.student.StudentRepository;
 import by.chess.bot.model.student.entity.Student;
 import by.chess.bot.model.user.UserRepository;
@@ -20,13 +21,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 public class SaveSpecialityCommand implements ReplyCommand {
   final StudentRepository studentRepository;
   final GetStudentTimetableInfoService timetableInfoService;
+  final MessagesConfig messagesConfig;
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
     SendMessage reply = new SendMessage();
     reply.setChatId(chatId);
     updateUser(chatId, data);
-    reply.setText("Агонь, теперь можно смотреть расписание");
+    reply.setText(messagesConfig.getReadyMessage());
     reply.setReplyMarkup(new GetTimetableKeyboard().getReplyKeyboard());
     return reply;
   }

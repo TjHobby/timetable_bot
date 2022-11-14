@@ -1,11 +1,11 @@
-package by.chess.bot.telegram.command.student;
+package by.chess.bot.telegram.command.common.timetable;
 
 import by.chess.bot.misc.DayOfWeek;
-import by.chess.bot.model.timetable.entity.Timetable;
-import by.chess.bot.service.student.GetStudentTimetableInfoService;
+import by.chess.bot.model.user.UserRepository;
+import by.chess.bot.service.TimetableMessageProvider;
+import by.chess.bot.service.student.StudentTimetableMessageService;
 import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.GetTimetableKeyboard;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,25 +13,23 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-@Component
+import java.util.List;
+
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ReplyTimetableCommand implements ReplyCommand {
-  final GetStudentTimetableInfoService timetableInfoService;
+public class BaseReplyTimetableCommand {
+  final TimetableMessageProvider timetableMessageProvider;
   final List<String> supportedCommands = DayOfWeek.getAliases();
 
-  @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
     SendMessage reply = new SendMessage();
     reply.setChatId(chatId);
-    Timetable timetable = timetableInfoService.getTimetable(chatId, DayOfWeek.parse(data));
-    reply.setText(timetable.toString());
+    reply.setText(timetableMessageProvider.getTimetableMessage(chatId, DayOfWeek.parse(data)));
     reply.setReplyMarkup(new GetTimetableKeyboard().getReplyKeyboard());
     return reply;
   }
 
-  @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandSupported(String text) {
     return supportedCommands.stream().anyMatch(str -> str.equalsIgnoreCase(text));
   }
 }

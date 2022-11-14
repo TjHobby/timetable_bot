@@ -1,16 +1,16 @@
 package by.chess.bot.service.student;
 
-import by.chess.bot.misc.DayOfWeek;
 import by.chess.bot.model.student.StudentRepository;
 import by.chess.bot.model.student.entity.Student;
 import by.chess.bot.model.timetable.TimetableRepository;
 import by.chess.bot.model.timetable.entity.Timetable;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -18,12 +18,6 @@ import org.springframework.stereotype.Service;
 public class GetStudentTimetableInfoService {
   TimetableRepository timetableRepository;
   StudentRepository studentRepository;
-
-  public Timetable getTimetable(long chatId, DayOfWeek day) {
-    Student student = studentRepository.getStudentById(chatId);
-    String key = Timetable.getTimetableKey(student.getGrade(), student.getSpeciality(), day);
-    return timetableRepository.getTimetable(key);
-  }
 
   public List<String> getGrades() {
     List<Timetable> timetables = timetableRepository.getAllTimetables();

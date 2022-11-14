@@ -12,4 +12,7 @@ public class MessagesConfig {
   String selectGradeMessage;
   String selectSpecialityMessage;
   String errorMessage;
+  String selectRoleMessage;
+  String enterTeacherNameMessage;
+  String readyMessage;
 }
