@@ -15,12 +15,12 @@ import java.util.List;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ChangeGradeCommand extends BaseStudentReplyCommand {
+public class SelectGradeCommand extends BaseStudentReplyCommand {
   final GetStudentTimetableInfoService timetableInfoService;
   final MessagesConfig messagesConfig;
   final List<String> supportedCommands = Collections.singletonList("Я студент");
 
-  public ChangeGradeCommand(
+  public SelectGradeCommand(
       GetStudentTimetableInfoService timetableInfoService,
       MessagesConfig messagesConfig,
       UserRepository userRepository) {

@@ -27,10 +27,17 @@ public class SaveNameCommand implements ReplyCommand {
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
+    saveTeacherName(chatId, data);
     SendMessage sendMessage = new SendMessage();
     sendMessage.setText(messagesConfig.getReadyMessage());
     sendMessage.setReplyMarkup(new GetTimetableKeyboard().getReplyKeyboard());
     return sendMessage;
+  }
+
+  private void saveTeacherName(long chatId, String data) {
+    Teacher teacher = teacherRepository.getTeacherById(chatId);
+    teacher.setName(data);
+    teacherRepository.save(teacher);
   }
 
   @Override
