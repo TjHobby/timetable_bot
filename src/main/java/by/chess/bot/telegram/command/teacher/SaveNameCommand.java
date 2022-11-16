@@ -1,6 +1,7 @@
 package by.chess.bot.telegram.command.teacher;
 
 import by.chess.bot.config.MessagesConfig;
+import by.chess.bot.misc.Role;
 import by.chess.bot.model.teacher.TeacherRepository;
 import by.chess.bot.model.teacher.entity.Teacher;
 import by.chess.bot.model.user.UserRepository;
@@ -37,7 +38,7 @@ public class SaveNameCommand implements ReplyCommand {
     User user = userRepository.getUserById(chatId);
     Teacher teacher = teacherRepository.getTeacherById(chatId);
     return user != null
-        && user.getRole().equals("teacher")
+        && user.getRole() == Role.TEACHER
         && teacher != null
         && StringUtils.isBlank(teacher.getName());
   }

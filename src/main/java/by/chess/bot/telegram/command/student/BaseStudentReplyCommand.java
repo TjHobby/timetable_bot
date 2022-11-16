@@ -1,5 +1,6 @@
 package by.chess.bot.telegram.command.student;
 
+import by.chess.bot.misc.Role;
 import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
 import by.chess.bot.telegram.command.ReplyCommand;
@@ -13,6 +14,6 @@ public abstract class BaseStudentReplyCommand implements ReplyCommand {
   @Override
   public boolean isCommandSupported(long chatId, String text) {
     User user = userRepository.getUserById(chatId);
-    return user != null && user.getRole().equalsIgnoreCase("student");
+    return user != null && user.getRole() == Role.STUDENT;
   }
 }

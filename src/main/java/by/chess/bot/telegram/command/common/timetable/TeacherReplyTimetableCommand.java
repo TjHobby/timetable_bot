@@ -1,5 +1,6 @@
 package by.chess.bot.telegram.command.common.timetable;
 
+import by.chess.bot.misc.Role;
 import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
 import by.chess.bot.service.teacher.TeacherTimetableMessageService;
@@ -30,7 +31,7 @@ public class TeacherReplyTimetableCommand implements ReplyCommand {
   @Override
   public boolean isCommandSupported(long chatId, String text) {
     User user = userRepository.getUserById(chatId);
-    if (user == null || !user.getRole().equals("teacher")) {
+    if (user == null || user.getRole() != Role.TEACHER) {
       return false;
     }
     return baseReplyTimetableCommand.isCommandSupported(text);
