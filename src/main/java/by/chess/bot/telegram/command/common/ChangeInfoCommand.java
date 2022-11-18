@@ -47,9 +47,6 @@ public class ChangeInfoCommand extends BaseStudentReplyCommand {
 
   @Override
   public boolean isCommandSupported(long chatId, String text) {
-    if (!super.isCommandSupported(chatId, text)) {
-      return false;
-    }
     return supportedCommands.stream().anyMatch(str -> str.equalsIgnoreCase(text));
   }
 }

@@ -1,7 +1,11 @@
 package by.chess.bot.telegram.command.student;
 
 import by.chess.bot.config.MessagesConfig;
+import by.chess.bot.misc.Role;
+import by.chess.bot.model.student.StudentRepository;
+import by.chess.bot.model.student.entity.Student;
 import by.chess.bot.model.user.UserRepository;
+import by.chess.bot.model.user.entity.User;
 import by.chess.bot.service.student.GetStudentTimetableInfoService;
 import by.chess.bot.telegram.keyboard.ChangeGradeKeyboard;
 import lombok.AccessLevel;
@@ -18,19 +22,24 @@ import java.util.List;
 public class SelectGradeCommand extends BaseStudentReplyCommand {
   final GetStudentTimetableInfoService timetableInfoService;
   final MessagesConfig messagesConfig;
+
+  final StudentRepository studentRepository;
   final List<String> supportedCommands = Collections.singletonList("Я студент");
 
   public SelectGradeCommand(
       GetStudentTimetableInfoService timetableInfoService,
       MessagesConfig messagesConfig,
-      UserRepository userRepository) {
+      UserRepository userRepository,
+      StudentRepository studentRepository) {
     super(userRepository);
     this.timetableInfoService = timetableInfoService;
     this.messagesConfig = messagesConfig;
+    this.studentRepository = studentRepository;
   }
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
+    initStudent(chatId);
     SendMessage reply = new SendMessage();
     reply.setChatId(chatId);
     reply.setText(messagesConfig.getSelectGradeMessage());
@@ -39,11 +48,16 @@ public class SelectGradeCommand extends BaseStudentReplyCommand {
     return reply;
   }
 
+  private void initStudent(long chatId) {
+    User user = new User(chatId, Role.STUDENT);
+    userRepository.save(user);
+    Student student = new Student();
+    student.setId(chatId);
+    studentRepository.save(student);
+  }
+
   @Override
   public boolean isCommandSupported(long chatId, String text) {
-    if (!super.isCommandSupported(chatId, text)) {
-      return false;
-    }
     return supportedCommands.stream().anyMatch(str -> str.equalsIgnoreCase(text));
   }
 }

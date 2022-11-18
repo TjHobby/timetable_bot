@@ -2,8 +2,11 @@ package by.chess.bot.service.teacher;
 
 import by.chess.bot.misc.DayOfWeek;
 import by.chess.bot.model.timetable.entity.Timetable;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -19,15 +22,12 @@ public class TeacherTimetableMapper {
   public List<TeacherTimetableDto> getTeacherOccurences() {
     List<TeacherTimetableDto> result = new LinkedList<>();
     for (Timetable timetable : filterTimetablesByDay()) {
-      Optional<Pair<String, String>> lesson = getLessonByTeacher(timetable);
-      lesson.ifPresent(
-          lessonPair ->
-              result.add(
-                  new TeacherTimetableDto(
-                      lessonPair.getKey(),
-                      timetable.getGrade(),
-                      timetable.getSpeciality(),
-                      lessonPair.getValue())));
+      getLessonByTeacher(timetable)
+          .forEach(
+              (key, value) ->
+                  result.add(
+                      new TeacherTimetableDto(
+                          key, timetable.getGrade(), timetable.getSpeciality(), value)));
     }
     return result;
   }
@@ -38,13 +38,12 @@ public class TeacherTimetableMapper {
         .collect(Collectors.toList());
   }
 
-  private Optional<Pair<String, String>> getLessonByTeacher(Timetable timetable) {
+  private Map<String, String> getLessonByTeacher(Timetable timetable) {
     return timetable.getLessons().entrySet().stream()
         .filter(
             entry ->
                 StringUtils.containsIgnoreCase(
-                    entry.getValue().replaceAll("\\W", ""), teacherName.replaceAll("\\W", "")))
-        .map(entry -> Pair.of(entry.getKey(), entry.getValue()))
-        .findAny();
+                    entry.getValue().replaceAll("\\w", "").replaceAll("[Ёё]", "е"), teacherName.replaceAll("\\w", "").replaceAll("[Ёё]", "е")))
+        .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
   }
 }

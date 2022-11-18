@@ -1,8 +1,6 @@
 package by.chess.bot.service.teacher;
 
 import by.chess.bot.misc.DayOfWeek;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,7 +16,7 @@ public class TeacherTimetableMessageBuilder {
   public String buildMessage(DayOfWeek day) {
     StringBuilder result = new StringBuilder();
     result.append(day.getFullName());
-    result.append("\n\n");
+    result.append("\n");
     LinkedHashMap<String, List<TeacherTimetableDto>> lessonsByTime = groupLessonsByTime();
     addLessons(result, lessonsByTime);
     return result.toString();
@@ -27,6 +25,7 @@ public class TeacherTimetableMessageBuilder {
   private void addLessons(StringBuilder result,
       LinkedHashMap<String, List<TeacherTimetableDto>> lessonsByTime) {
     for (Entry<String, List<TeacherTimetableDto>> lesson : lessonsByTime.entrySet()) {
+      result.append("\n");
       result.append(lesson.getKey());
       result.append("\n");
       addGrades(result, lesson);
@@ -52,7 +51,7 @@ public class TeacherTimetableMessageBuilder {
           lessonByGrade.getValue().stream()
               .map(TeacherTimetableDto::getSpeciality)
               .collect(Collectors.joining(", ")));
-      result.append("\n");
+      result.append("\n\n");
     }
   }
 

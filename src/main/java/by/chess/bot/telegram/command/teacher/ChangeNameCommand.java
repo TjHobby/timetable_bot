@@ -13,6 +13,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 
 @Component
 @AllArgsConstructor
@@ -26,13 +28,18 @@ public class ChangeNameCommand implements ReplyCommand {
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
     setTeacherRole(chatId);
+    initTeacher(chatId);
+    SendMessage message = new SendMessage();
+    message.setChatId(chatId);
+    message.setReplyMarkup(new ReplyKeyboardRemove(true));
+    message.setText(messagesConfig.getEnterTeacherNameMessage());
+    return message;
+  }
+
+  private void initTeacher(long chatId) {
     Teacher teacher = new Teacher();
     teacher.setId(chatId);
     teacherRepository.save(teacher);
-    SendMessage message = new SendMessage();
-    message.setChatId(chatId);
-    message.setText(messagesConfig.getEnterTeacherNameMessage());
-    return message;
   }
 
   private void setTeacherRole(long chatId) {
@@ -45,6 +52,4 @@ public class ChangeNameCommand implements ReplyCommand {
   public boolean isCommandSupported(long chatId, String text) {
     return text.equalsIgnoreCase("Я преподаватель");
   }
-
-
 }
