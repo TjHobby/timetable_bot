@@ -9,6 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class MessagesConfig {
+  long cooldown;
+  String cooldownMessage;
   String selectGradeMessage;
   String selectSpecialityMessage;
   String errorMessage;
