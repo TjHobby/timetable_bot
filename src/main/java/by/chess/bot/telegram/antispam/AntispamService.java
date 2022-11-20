@@ -18,9 +18,9 @@ public class AntispamService {
   }
 
   public boolean checkSpam(long chatId) {
-    long lastRequestTime = users.get(chatId);
     long currentTime = System.currentTimeMillis();
-    if (lastRequestTime == 0 || currentTime - lastRequestTime > messagesConfig.getCooldown()) {
+    if (users.get(chatId) == null
+        || currentTime - users.get(chatId) > messagesConfig.getCooldown()) {
       users.put(chatId, currentTime);
       return false;
     }
@@ -28,7 +28,7 @@ public class AntispamService {
     return true;
   }
 
-  public SendMessage getSpamReply(long chatId){
+  public SendMessage getSpamReply(long chatId) {
     SendMessage sendMessage = new SendMessage();
     sendMessage.setText(messagesConfig.getCooldownMessage());
     sendMessage.setChatId(chatId);
