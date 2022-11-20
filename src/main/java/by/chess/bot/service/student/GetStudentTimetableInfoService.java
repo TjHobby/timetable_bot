@@ -4,15 +4,13 @@ import by.chess.bot.model.student.StudentRepository;
 import by.chess.bot.model.student.entity.Student;
 import by.chess.bot.model.timetable.TimetableRepository;
 import by.chess.bot.model.timetable.entity.Timetable;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

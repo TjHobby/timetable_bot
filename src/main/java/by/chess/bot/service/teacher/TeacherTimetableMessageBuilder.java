@@ -22,8 +22,8 @@ public class TeacherTimetableMessageBuilder {
     return result.toString();
   }
 
-  private void addLessons(StringBuilder result,
-      LinkedHashMap<String, List<TeacherTimetableDto>> lessonsByTime) {
+  private void addLessons(
+      StringBuilder result, LinkedHashMap<String, List<TeacherTimetableDto>> lessonsByTime) {
     for (Entry<String, List<TeacherTimetableDto>> lesson : lessonsByTime.entrySet()) {
       result.append("\n");
       result.append(lesson.getKey());
@@ -41,8 +41,8 @@ public class TeacherTimetableMessageBuilder {
     }
   }
 
-  private void addSpecialities(StringBuilder result,
-      Entry<String, List<TeacherTimetableDto>> lessonByName) {
+  private void addSpecialities(
+      StringBuilder result, Entry<String, List<TeacherTimetableDto>> lessonByName) {
     for (Entry<String, List<TeacherTimetableDto>> lessonByGrade :
         groupLessonsByGrade(lessonByName.getValue()).entrySet()) {
       result.append(lessonByGrade.getKey());

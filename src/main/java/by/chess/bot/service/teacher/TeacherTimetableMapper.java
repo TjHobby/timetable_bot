@@ -2,16 +2,13 @@ package by.chess.bot.service.teacher;
 
 import by.chess.bot.misc.DayOfWeek;
 import by.chess.bot.model.timetable.entity.Timetable;
-import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 @AllArgsConstructor
 public class TeacherTimetableMapper {
@@ -43,7 +40,8 @@ public class TeacherTimetableMapper {
         .filter(
             entry ->
                 StringUtils.containsIgnoreCase(
-                    entry.getValue().replaceAll("\\w", "").replaceAll("[Ёё]", "е"), teacherName.replaceAll("\\w", "").replaceAll("[Ёё]", "е")))
+                    entry.getValue().replaceAll("\\w", "").replaceAll("[Ёё]", "е"),
+                    teacherName.replaceAll("\\w", "").replaceAll("[Ёё]", "е")))
         .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
   }
 }

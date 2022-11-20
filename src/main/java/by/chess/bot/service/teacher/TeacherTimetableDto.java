@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
+
 @AllArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,15 +26,15 @@ public class TeacherTimetableDto {
     this.lesson = lesson;
   }
 
-  private LocalTime parseTime(String timeString){
-    String time = timeString.trim().replaceAll("\\W",":");
-    if( StringUtils.isBlank(time)){
-      return LocalTime.of(0,0);
+  private LocalTime parseTime(String timeString) {
+    String processedTimeString = timeString.trim().replaceAll("\\W", ":");
+    if (StringUtils.isBlank(processedTimeString)) {
+      return LocalTime.of(0, 0);
     }
-    return LocalTime.parse(time, formatter);
+    return LocalTime.parse(processedTimeString, formatter);
   }
 
-  public String getTimeString(){
+  public String getTimeString() {
     return time.format(formatter);
   }
 }

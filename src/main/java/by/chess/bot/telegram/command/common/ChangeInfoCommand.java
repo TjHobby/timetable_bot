@@ -6,14 +6,13 @@ import by.chess.bot.model.teacher.TeacherRepository;
 import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.telegram.command.student.BaseStudentReplyCommand;
 import by.chess.bot.telegram.keyboard.SelectRoleKeyboard;
+import java.util.Arrays;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)

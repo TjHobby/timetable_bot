@@ -3,8 +3,6 @@ package by.chess.bot.telegram.command.student;
 import by.chess.bot.config.MessagesConfig;
 import by.chess.bot.model.student.StudentRepository;
 import by.chess.bot.model.student.entity.Student;
-import by.chess.bot.model.user.UserRepository;
-import by.chess.bot.model.user.entity.User;
 import by.chess.bot.service.student.GetStudentTimetableInfoService;
 import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.ChangeSpecialityKeyboard;

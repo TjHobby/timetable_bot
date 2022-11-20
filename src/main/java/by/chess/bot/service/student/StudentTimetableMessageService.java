@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StudentTimetableMessageService implements TimetableMessageProvider {
-    TimetableRepository timetableRepository;
-    StudentRepository studentRepository;
+  TimetableRepository timetableRepository;
+  StudentRepository studentRepository;
 
-    public String getTimetableMessage(long chatId, DayOfWeek day) {
-        Student student = studentRepository.getStudentById(chatId);
-        String key = Timetable.getTimetableKey(student.getGrade(), student.getSpeciality(), day);
-        return timetableRepository.getTimetable(key).toString();
-    }
+  public String getTimetableMessage(long chatId, DayOfWeek day) {
+    Student student = studentRepository.getStudentById(chatId);
+    String key = Timetable.getTimetableKey(student.getGrade(), student.getSpeciality(), day);
+    return timetableRepository.getTimetable(key).toString();
+  }
 }
