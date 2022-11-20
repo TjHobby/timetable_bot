@@ -1,9 +1,10 @@
-package by.chess.bot.telegram.command;
+package by.chess.bot.telegram.command.student;
 
 import by.chess.bot.config.MessagesConfig;
-import by.chess.bot.model.user.UserRepository;
-import by.chess.bot.model.user.entity.User;
-import by.chess.bot.service.GetTimetableInfoService;
+import by.chess.bot.model.student.StudentRepository;
+import by.chess.bot.model.student.entity.Student;
+import by.chess.bot.service.student.GetStudentTimetableInfoService;
+import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.ChangeSpecialityKeyboard;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SaveGradeCommand implements ReplyCommand {
-  final GetTimetableInfoService timetableInfoService;
-  final UserRepository userRepository;
+  final GetStudentTimetableInfoService timetableInfoService;
+  final StudentRepository studentRepository;
   final MessagesConfig messagesConfig;
 
   @Override
@@ -38,12 +39,12 @@ public class SaveGradeCommand implements ReplyCommand {
   }
 
   private void updateUser(long chatId, String data) {
-    User entity = userRepository.getUserById(chatId);
+    Student entity = studentRepository.getStudentById(chatId);
     if (entity == null) {
-      entity = new User();
+      entity = new Student();
       entity.setId(chatId);
     }
     entity.setGrade(data);
-    userRepository.save(entity);
+    studentRepository.save(entity);
   }
 }
