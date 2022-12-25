@@ -40,7 +40,7 @@ public class SheetContentParser {
   private List<String> getRowCellValues(RowData row, int rowNum, int tableWidth) {
     List<String> result = new LinkedList<>();
     List<CellData> cells = row.getValues();
-    if (cells.size() < 2) {
+    if (cells == null || cells.size() < 2) {
       return result;
     }
     for (int j = 0; j < cells.size(); j++) {
