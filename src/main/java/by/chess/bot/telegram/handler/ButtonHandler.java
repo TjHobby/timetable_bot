@@ -1,5 +1,6 @@
 package by.chess.bot.telegram.handler;
 
+import by.chess.bot.telegram.antispam.AntispamService;
 import by.chess.bot.telegram.command.ReplyCommand;
 import java.util.List;
 import lombok.AccessLevel;
@@ -18,6 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 public class ButtonHandler {
 
   final List<ReplyCommand> commands;
+  final AntispamService antispamService;
 
   public BotApiMethod<?> answerMessage(Message message) {
     if (message == null) {
@@ -27,6 +29,9 @@ public class ButtonHandler {
     long chatId = message.getChatId();
     String messageContent = message.getText();
     log.info("Received message from {}, content: {}", chatId, messageContent);
+    if (antispamService.checkSpam(chatId)) {
+      return antispamService.getSpamReply(chatId);
+    }
     return commands.stream()
         .filter(command -> command.isCommandSupported(chatId, messageContent))
         .findAny()

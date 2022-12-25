@@ -42,8 +42,7 @@ public class ChangeNameCommand implements ReplyCommand {
   }
 
   private void setTeacherRole(long chatId) {
-    User user = userRepository.getUserById(chatId);
-    user.setRole(Role.TEACHER);
+    User user = new User(chatId, Role.TEACHER);
     userRepository.save(user);
   }
 
