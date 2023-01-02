@@ -1,4 +1,4 @@
-package by.chess.bot.service.parser.faculty_page.util;
+package by.chess.bot.service.parser.faculty_page.misc;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,7 +11,7 @@ public class URLUtils {
   public static String extractSpreadsheetIdFromUrl(String url) {
     Pattern pattern = Pattern.compile("(?<=/d/)[^/]*");
     Matcher matcher = pattern.matcher(url);
-    if(!matcher.find()){
+    if (!matcher.find()) {
       throw new IllegalStateException("Cannot extract url from section");
     }
     return matcher.group();

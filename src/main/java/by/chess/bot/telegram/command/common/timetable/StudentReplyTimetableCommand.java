@@ -3,8 +3,8 @@ package by.chess.bot.telegram.command.common.timetable;
 import by.chess.bot.misc.Role;
 import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
-import by.chess.bot.service.student.StudentTimetableMessageService;
 import by.chess.bot.telegram.command.ReplyCommand;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
@@ -15,8 +15,9 @@ public class StudentReplyTimetableCommand implements ReplyCommand {
   private final BaseReplyTimetableCommand baseReplyTimetableCommand;
 
   public StudentReplyTimetableCommand(
-      StudentTimetableMessageService messageService, UserRepository userRepository) {
-    this.baseReplyTimetableCommand = new BaseReplyTimetableCommand(messageService);
+      @Qualifier("studentReplyCommand") BaseReplyTimetableCommand command,
+      UserRepository userRepository) {
+    this.baseReplyTimetableCommand = command;
     this.userRepository = userRepository;
   }
 

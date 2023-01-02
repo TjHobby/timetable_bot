@@ -3,7 +3,7 @@ package by.chess.bot.service.parser.google;
 import by.chess.bot.model.timetable.entity.Timetable;
 import by.chess.bot.service.parser.TimetableProvider;
 import by.chess.bot.service.parser.faculty_page.FacultyPageParser;
-import by.chess.bot.service.parser.faculty_page.util.URLUtils;
+import by.chess.bot.service.parser.faculty_page.misc.URLUtils;
 import by.chess.bot.service.parser.google.api.GoogleSheetApiService;
 import by.chess.bot.service.parser.google.table_parser.TableParserFactory;
 import java.util.LinkedList;

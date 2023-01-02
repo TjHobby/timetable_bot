@@ -2,8 +2,7 @@ package by.chess.bot.service.parser.faculty_page;
 
 import by.chess.bot.config.FacultyPageConfig;
 import by.chess.bot.config.GradesConfig;
-import by.chess.bot.service.parser.faculty_page.util.DateUtils;
-import by.chess.bot.service.parser.faculty_page.util.DateUtilsFactory;
+import by.chess.bot.service.parser.faculty_page.misc.WeekPeriodServiceFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,10 @@ public class FacultyPageParser {
   }
 
   private Element findSectionWithGoogleSheetsLinks(Elements sections) {
-    String sectionFilterText = makeSectionFilterText();
+    String sectionFilterText =
+        new WeekPeriodServiceFactory()
+            .getDateUtils()
+            .getWeekPeriodString(facultyConfig.getSectionDatePattern());
     for (int i = 0; i < sections.size(); i++) {
       if (sections.get(i).text().contains(sectionFilterText)) {
         return sections.get(i + 1);
@@ -51,25 +53,16 @@ public class FacultyPageParser {
     throw new IllegalStateException("Cannot find Google Sheets url");
   }
 
-  private String makeSectionFilterText() {
-    DateUtils dateUtils = new DateUtilsFactory().getDateUtils();
-    return String.format(
-        facultyConfig.getSectionDatePattern(),
-        dateUtils.getFirstDayOfWeekString(),
-        dateUtils.getLastDayOfWeekString());
-  }
-
   private Map<String, String> parseGoogleSheetLinks(Elements links) {
     Map<String, String> linksMap = new HashMap<>();
     List<String> allGrades =
         Stream.concat(gradesConfig.getGrades().stream(), gradesConfig.getLegacyGrades().stream())
             .collect(Collectors.toList());
-    links.forEach(
-        link -> {
-          if (allGrades.contains(link.text())) {
-            linksMap.put(link.text(), link.attr("href"));
-          }
-        });
+    for (Element link : links) {
+      if (allGrades.contains(link.text())) {
+        linksMap.put(link.text(), link.attr("href"));
+      }
+    }
     return linksMap;
   }
 }

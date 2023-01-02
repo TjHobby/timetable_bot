@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @Component
 @AllArgsConstructor
 public class SelectSpecialityCommand implements ReplyCommand {
+  private static final GetTimetableKeyboard timetableKeyboard = new GetTimetableKeyboard();
   private final StudentRepository studentRepository;
   private final GetStudentTimetableInfoService timetableInfoService;
   private final MessagesConfig messagesConfig;

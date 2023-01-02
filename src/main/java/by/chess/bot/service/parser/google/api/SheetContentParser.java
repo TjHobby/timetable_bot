@@ -1,7 +1,6 @@
 package by.chess.bot.service.parser.google.api;
 
 import com.google.api.services.sheets.v4.model.CellData;
-import com.google.api.services.sheets.v4.model.GridData;
 import com.google.api.services.sheets.v4.model.GridRange;
 import com.google.api.services.sheets.v4.model.RowData;
 import com.google.api.services.sheets.v4.model.Sheet;
@@ -77,8 +76,7 @@ public class SheetContentParser {
   }
 
   private String getCellValue(int i, int j) {
-    String cellValue =
-        sheet.getData().get(0).getRowData().get(i).getValues().get(j).getFormattedValue();
+    String cellValue = sheetRowData.get(i).getValues().get(j).getFormattedValue();
     if (cellValue == null) {
       return mergedCells.getMergedCellValue(i, j);
     }

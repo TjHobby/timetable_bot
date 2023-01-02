@@ -1,16 +1,20 @@
-package by.chess.bot.service.parser.faculty_page.util;
+package by.chess.bot.service.parser.faculty_page.misc;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class DateUtils {
-  private static final int WORKING_DAYS = 6;
+public class WeekPeriodService {
+  private static final long WORKING_DAYS = 6;
   private static final String DATE_PATTERN = "d MMMM";
   private final LocalDate today;
 
-  public DateUtils(LocalDate date) {
+  public WeekPeriodService(LocalDate date) {
     this.today = date;
+  }
+
+  public String getWeekPeriodString(String pattern) {
+    return String.format(pattern, getFirstDayOfWeekString(), getLastDayOfWeekString());
   }
 
   public String getLastDayOfWeekString() {
@@ -26,7 +30,7 @@ public class DateUtils {
   }
 
   private LocalDate getFirstDayOfWeek() {
-    long dayOffset = today.getDayOfWeek().getValue() - 1;
+    long dayOffset = today.getDayOfWeek().getValue() - 1L;
     return today.minusDays(dayOffset);
   }
 
