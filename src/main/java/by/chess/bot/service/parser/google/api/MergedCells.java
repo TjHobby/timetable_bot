@@ -3,15 +3,12 @@ package by.chess.bot.service.parser.google.api;
 import com.google.api.services.sheets.v4.model.GridRange;
 import com.google.api.services.sheets.v4.model.Sheet;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
+import lombok.Getter;
 
-@Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
 public class MergedCells {
-  final Sheet sheet;
-  final List<GridRange> mergedCellRegions;
+  private final Sheet sheet;
+  private final List<GridRange> mergedCellRegions;
 
   public MergedCells(Sheet sheet) {
     this.sheet = sheet;

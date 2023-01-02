@@ -1,6 +1,5 @@
 package by.chess.bot.telegram;
 
-import by.chess.bot.config.MessagesConfig;
 import by.chess.bot.telegram.handler.ButtonHandler;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,11 +17,10 @@ import org.telegram.telegrambots.starter.SpringWebhookBot;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Slf4j
 public class TimetableBot extends SpringWebhookBot {
+  private final ButtonHandler buttonHandler;
   String botPath;
   String botUsername;
   String botToken;
-  ButtonHandler buttonHandler;
-  MessagesConfig messagesConfig;
 
   public TimetableBot(SetWebhook setWebhook, ButtonHandler buttonHandler) {
     super(setWebhook);

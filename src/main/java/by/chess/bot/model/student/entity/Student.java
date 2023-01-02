@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Student {
-  @Id long id;
-  @Column String grade;
-  @Column String speciality;
+  @Id private long id;
+  @Column private String grade;
+  @Column private String speciality;
 }

@@ -2,22 +2,18 @@ package by.chess.bot.service.teacher;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 
 @AllArgsConstructor
 @Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TeacherTimetableDto {
-  LocalTime time;
-  String grade;
-  String speciality;
-  String lesson;
-
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+  private LocalTime time;
+  private String grade;
+  private String speciality;
+  private String lesson;
 
   public TeacherTimetableDto(String time, String grade, String speciality, String lesson) {
     this.time = parseTime(time);

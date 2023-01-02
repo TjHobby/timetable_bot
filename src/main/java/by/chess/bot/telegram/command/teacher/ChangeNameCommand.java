@@ -7,9 +7,7 @@ import by.chess.bot.model.teacher.entity.Teacher;
 import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
 import by.chess.bot.telegram.command.ReplyCommand;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,12 +15,11 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRem
 
 @Component
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChangeNameCommand implements ReplyCommand {
 
-  final MessagesConfig messagesConfig;
-  final UserRepository userRepository;
-  final TeacherRepository teacherRepository;
+  private final MessagesConfig messagesConfig;
+  private final UserRepository userRepository;
+  private final TeacherRepository teacherRepository;
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
@@ -47,7 +44,7 @@ public class ChangeNameCommand implements ReplyCommand {
   }
 
   @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandAvailable(long chatId, String text) {
     return text.equalsIgnoreCase("Я преподаватель");
   }
 }

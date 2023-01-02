@@ -2,9 +2,7 @@ package by.chess.bot.config;
 
 import by.chess.bot.telegram.TimetableBot;
 import by.chess.bot.telegram.handler.ButtonHandler;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +11,11 @@ import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 @ConfigurationProperties(prefix = "telegram")
 @Configuration
 @Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TelegramConfig {
-  String webhookHost;
-  String webhookPath;
-  String botName;
-  String botToken;
+  private String webhookHost;
+  private String webhookPath;
+  private String botName;
+  private String botToken;
 
   @Bean
   public SetWebhook setWebhookInstance() {

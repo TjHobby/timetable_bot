@@ -11,12 +11,12 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 @AllArgsConstructor
-public class TeacherTimetableMapper {
+public class TeacherTimetableService {
   private final List<Timetable> studentTimetables;
   private final String teacherName;
   private final DayOfWeek day;
 
-  public List<TeacherTimetableDto> getTeacherOccurences() {
+  public List<TeacherTimetableDto> getTeacherOccurrences() {
     List<TeacherTimetableDto> result = new LinkedList<>();
     for (Timetable timetable : filterTimetablesByDay()) {
       getLessonByTeacher(timetable)
@@ -40,8 +40,8 @@ public class TeacherTimetableMapper {
         .filter(
             entry ->
                 StringUtils.containsIgnoreCase(
-                    entry.getValue().replaceAll("\\w", "").replaceAll("[Ёё]", "е"),
-                    teacherName.replaceAll("\\w", "").replaceAll("[Ёё]", "е")))
+                    entry.getValue().replaceAll("[\\w ]", "").replaceAll("[Ёё]", "е"),
+                    teacherName.replaceAll("[\\w ]", "").replaceAll("[Ёё]", "е")))
         .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
   }
 }

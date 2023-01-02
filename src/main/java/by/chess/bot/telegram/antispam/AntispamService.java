@@ -4,7 +4,6 @@ import by.chess.bot.config.MessagesConfig;
 import java.util.Map;
 import java.util.WeakHashMap;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Component
 public class AntispamService {
@@ -26,12 +25,5 @@ public class AntispamService {
     }
     users.put(chatId, currentTime);
     return true;
-  }
-
-  public SendMessage getSpamReply(long chatId) {
-    SendMessage sendMessage = new SendMessage();
-    sendMessage.setText(messagesConfig.getCooldownMessage());
-    sendMessage.setChatId(chatId);
-    return sendMessage;
   }
 }

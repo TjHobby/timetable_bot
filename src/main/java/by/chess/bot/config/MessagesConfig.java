@@ -1,20 +1,18 @@
 package by.chess.bot.config;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "messages")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class MessagesConfig {
-  long cooldown;
-  String cooldownMessage;
-  String selectGradeMessage;
-  String selectSpecialityMessage;
-  String errorMessage;
-  String selectRoleMessage;
-  String enterTeacherNameMessage;
-  String readyMessage;
+  private long cooldown;
+  private String cooldownMessage;
+  private String selectGradeMessage;
+  private String selectSpecialityMessage;
+  private String errorMessage;
+  private String selectRoleMessage;
+  private String enterTeacherNameMessage;
+  private String readyMessage;
+  private String commandNotFoundMessage;
 }

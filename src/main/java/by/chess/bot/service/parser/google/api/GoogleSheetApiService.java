@@ -23,17 +23,14 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class GoogleSheetApiService {
 
-  GoogleSheetsApiConfig config;
+  private GoogleSheetsApiConfig config;
 
   public List<List<String>> getSheetContent(String spreadsheetId) {
     Sheet sheet = getSheet(spreadsheetId);

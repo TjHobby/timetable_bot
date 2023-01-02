@@ -1,15 +1,12 @@
 package by.chess.bot.service.parser.google.table_parser;
 
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class LegacyGoogleDocParser extends TableParser {
 
-  static final int SPECIALITIES_ROW = 2;
-  static final int DAY_OF_WEEK_COL = 0;
-  static final int TIME_COL = 1;
+  private static final int SPECIALITIES_ROW = 2;
+  private static final int DAY_OF_WEEK_COL = 0;
+  private static final int TIME_COL = 1;
 
   public LegacyGoogleDocParser(List<List<String>> tableData) {
     super(tableData);

@@ -10,20 +10,17 @@ import by.chess.bot.service.student.GetStudentTimetableInfoService;
 import by.chess.bot.telegram.keyboard.ChangeGradeKeyboard;
 import java.util.Collections;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SelectGradeCommand extends BaseStudentReplyCommand {
-  final GetStudentTimetableInfoService timetableInfoService;
-  final MessagesConfig messagesConfig;
+  private final GetStudentTimetableInfoService timetableInfoService;
+  private final MessagesConfig messagesConfig;
 
-  final StudentRepository studentRepository;
-  final List<String> supportedCommands = Collections.singletonList("Я студент");
+  private final StudentRepository studentRepository;
+  private final List<String> supportedCommands = Collections.singletonList("Я студент");
 
   public SelectGradeCommand(
       GetStudentTimetableInfoService timetableInfoService,
@@ -56,7 +53,7 @@ public class SelectGradeCommand extends BaseStudentReplyCommand {
   }
 
   @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandAvailable(long chatId, String text) {
     return supportedCommands.stream().anyMatch(str -> str.equalsIgnoreCase(text));
   }
 }

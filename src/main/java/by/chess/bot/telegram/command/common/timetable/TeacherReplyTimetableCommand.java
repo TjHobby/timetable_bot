@@ -5,17 +5,14 @@ import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
 import by.chess.bot.service.teacher.TeacherTimetableMessageService;
 import by.chess.bot.telegram.command.ReplyCommand;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TeacherReplyTimetableCommand implements ReplyCommand {
 
-  final UserRepository userRepository;
-  final BaseReplyTimetableCommand baseReplyTimetableCommand;
+  private final UserRepository userRepository;
+  private final BaseReplyTimetableCommand baseReplyTimetableCommand;
 
   public TeacherReplyTimetableCommand(
       TeacherTimetableMessageService messageService, UserRepository userRepository) {
@@ -29,7 +26,7 @@ public class TeacherReplyTimetableCommand implements ReplyCommand {
   }
 
   @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandAvailable(long chatId, String text) {
     User user = userRepository.getUserById(chatId);
     if (user == null || user.getRole() != Role.TEACHER) {
       return false;

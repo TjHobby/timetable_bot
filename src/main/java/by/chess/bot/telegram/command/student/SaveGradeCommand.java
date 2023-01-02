@@ -6,20 +6,17 @@ import by.chess.bot.model.student.entity.Student;
 import by.chess.bot.service.student.GetStudentTimetableInfoService;
 import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.ChangeSpecialityKeyboard;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Component
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SaveGradeCommand implements ReplyCommand {
-  final GetStudentTimetableInfoService timetableInfoService;
-  final StudentRepository studentRepository;
-  final MessagesConfig messagesConfig;
+  private final GetStudentTimetableInfoService timetableInfoService;
+  private final StudentRepository studentRepository;
+  private final MessagesConfig messagesConfig;
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
@@ -34,7 +31,7 @@ public class SaveGradeCommand implements ReplyCommand {
   }
 
   @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandAvailable(long chatId, String text) {
     return timetableInfoService.getGrades().stream().anyMatch(str -> str.equalsIgnoreCase(text));
   }
 

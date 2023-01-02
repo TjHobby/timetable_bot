@@ -14,6 +14,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Teacher {
-  @Id long id;
-  @Column String name;
+  @Id private long id;
+  @Column private String name;
 }

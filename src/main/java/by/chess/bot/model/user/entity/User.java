@@ -17,6 +17,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-  @Id long id;
-  @Column Role role;
+  @Id private long id;
+  @Column private Role role;
 }

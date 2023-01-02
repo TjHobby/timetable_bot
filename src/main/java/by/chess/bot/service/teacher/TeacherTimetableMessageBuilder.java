@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class TeacherTimetableMessageBuilder {
-  List<TeacherTimetableDto> timetables;
+  private final List<TeacherTimetableDto> timetables;
 
   public String buildMessage(DayOfWeek day) {
     StringBuilder result = new StringBuilder();

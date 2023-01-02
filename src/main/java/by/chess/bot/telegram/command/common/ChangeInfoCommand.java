@@ -8,19 +8,16 @@ import by.chess.bot.telegram.command.student.BaseStudentReplyCommand;
 import by.chess.bot.telegram.keyboard.SelectRoleKeyboard;
 import java.util.Arrays;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChangeInfoCommand extends BaseStudentReplyCommand {
-  final MessagesConfig messagesConfig;
-  final List<String> supportedCommands = Arrays.asList("/start", "Изменить информацию");
-  final StudentRepository studentRepository;
-  final TeacherRepository teacherRepository;
+  private final MessagesConfig messagesConfig;
+  private final List<String> supportedCommands = Arrays.asList("/start", "Изменить информацию");
+  private final StudentRepository studentRepository;
+  private final TeacherRepository teacherRepository;
 
   public ChangeInfoCommand(
       MessagesConfig messagesConfig,
@@ -45,7 +42,7 @@ public class ChangeInfoCommand extends BaseStudentReplyCommand {
   }
 
   @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandAvailable(long chatId, String text) {
     return supportedCommands.stream().anyMatch(str -> str.equalsIgnoreCase(text));
   }
 }

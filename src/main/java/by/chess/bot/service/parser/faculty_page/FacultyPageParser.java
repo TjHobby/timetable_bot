@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,12 +19,11 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FacultyPageParser {
-  static final String SECTION_TAG_NAME = "section";
-  static final String LINK_TAG_NAME = "a";
-  final FacultyPageConfig facultyConfig;
-  final GradesConfig gradesConfig;
+  private static final String SECTION_TAG_NAME = "section";
+  private static final String LINK_TAG_NAME = "a";
+  private final FacultyPageConfig facultyConfig;
+  private final GradesConfig gradesConfig;
 
   public Map<String, String> getGoogleSheetUrl() {
     Document facultyPage = getFacultyPage();

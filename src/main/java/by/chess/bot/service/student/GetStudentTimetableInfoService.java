@@ -7,17 +7,14 @@ import by.chess.bot.model.timetable.entity.Timetable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class GetStudentTimetableInfoService {
-  TimetableRepository timetableRepository;
-  StudentRepository studentRepository;
+  private TimetableRepository timetableRepository;
+  private StudentRepository studentRepository;
 
   public List<String> getGrades() {
     List<Timetable> timetables = timetableRepository.getAllTimetables();

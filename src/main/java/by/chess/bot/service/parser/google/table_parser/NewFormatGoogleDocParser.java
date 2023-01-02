@@ -4,11 +4,11 @@ import java.util.List;
 
 public class NewFormatGoogleDocParser extends TableParser {
 
-  static final int DAY_OF_WEEK_COL = 0;
+  private static final int DAY_OF_WEEK_COL = 0;
 
-  static final int SPECIALITY_NAME_ROW = 1;
-  static final int SPECIALITY_GROUP_NUM = 2;
-  static final int TIME_COL = 1;
+  private static final int SPECIALITY_NAME_ROW = 1;
+  private static final int SPECIALITY_GROUP_NUM = 2;
+  private static final int TIME_COL = 1;
 
   public NewFormatGoogleDocParser(List<List<String>> tableContent) {
     super(tableContent);

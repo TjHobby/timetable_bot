@@ -9,20 +9,17 @@ import by.chess.bot.service.parser.google.table_parser.TableParserFactory;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Slf4j
 public class GoogleSheetsTimetableProvider implements TimetableProvider {
-  GoogleSheetApiService googleSheetApiService;
-  FacultyPageParser facultyPageParser;
-  TableParserFactory tableParserFactory;
+  private GoogleSheetApiService googleSheetApiService;
+  private FacultyPageParser facultyPageParser;
+  private TableParserFactory tableParserFactory;
 
   public List<Timetable> getTimetables() {
     Map<String, String> gradesAndUrls = facultyPageParser.getGoogleSheetUrl();

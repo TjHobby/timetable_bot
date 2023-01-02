@@ -9,13 +9,10 @@ import java.util.AbstractMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SheetContentParser {
-  final Sheet sheet;
-  final MergedCells mergedCells;
+  private final Sheet sheet;
+  private final MergedCells mergedCells;
 
   public SheetContentParser(Sheet sheet) {
     this.sheet = sheet;

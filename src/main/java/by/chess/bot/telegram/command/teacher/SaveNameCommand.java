@@ -8,9 +8,7 @@ import by.chess.bot.model.user.UserRepository;
 import by.chess.bot.model.user.entity.User;
 import by.chess.bot.telegram.command.ReplyCommand;
 import by.chess.bot.telegram.keyboard.GetTimetableKeyboard;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -18,12 +16,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Component
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SaveNameCommand implements ReplyCommand {
 
-  final TeacherRepository teacherRepository;
-  final UserRepository userRepository;
-  final MessagesConfig messagesConfig;
+  private final TeacherRepository teacherRepository;
+  private final UserRepository userRepository;
+  private final MessagesConfig messagesConfig;
 
   @Override
   public BotApiMethod<?> handleMessage(long chatId, String data) {
@@ -42,7 +39,7 @@ public class SaveNameCommand implements ReplyCommand {
   }
 
   @Override
-  public boolean isCommandSupported(long chatId, String text) {
+  public boolean isCommandAvailable(long chatId, String text) {
     User user = userRepository.getUserById(chatId);
     Teacher teacher = teacherRepository.getTeacherById(chatId);
     return user != null

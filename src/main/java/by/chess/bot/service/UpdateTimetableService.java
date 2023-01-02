@@ -5,9 +5,7 @@ import by.chess.bot.model.timetable.entity.Timetable;
 import by.chess.bot.service.parser.TimetableProvider;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -18,10 +16,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Lazy(value = false)
 @EnableAsync
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UpdateTimetableService {
-  TimetableRepository repository;
-  TimetableProvider timetableProvider;
+  private final TimetableRepository repository;
+  private final TimetableProvider timetableProvider;
 
   @Scheduled(fixedRate = 15, timeUnit = TimeUnit.MINUTES)
   @Async
