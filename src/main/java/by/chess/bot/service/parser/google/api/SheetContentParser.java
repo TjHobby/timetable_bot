@@ -10,21 +10,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SheetContentParser {
-  private final Sheet sheet;
+  private final List<RowData> rows;
   private final MergedCells mergedCells;
 
   public SheetContentParser(Sheet sheet) {
-    this.sheet = sheet;
+    this.rows = sheet.getData().get(0).getRowData();
     this.mergedCells = new MergedCells(sheet);
   }
 
   public List<List<String>> getSheetContent() {
-    GridData data = sheet.getData().get(0);
-    List<RowData> rows = data.getRowData();
-    return parseSheetTable(rows);
+    return parseSheetTable();
   }
 
-  private List<List<String>> parseSheetTable(List<RowData> rows) {
+  private List<List<String>> parseSheetTable() {
     List<List<String>> result = new LinkedList<>();
     int tableWidth = rows.stream().map(AbstractMap::size).max(Integer::compareTo).orElse(0);
     for (int i = 0; i < rows.size(); i++) {
@@ -76,7 +74,7 @@ public class SheetContentParser {
   }
 
   private String getCellValue(int i, int j) {
-    String cellValue = sheetRowData.get(i).getValues().get(j).getFormattedValue();
+    String cellValue = rows.get(i).getValues().get(j).getFormattedValue();
     if (cellValue == null) {
       return mergedCells.getMergedCellValue(i, j);
     }
