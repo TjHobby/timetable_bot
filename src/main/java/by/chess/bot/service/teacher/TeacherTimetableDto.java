@@ -9,11 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 @AllArgsConstructor
 @Data
 public class TeacherTimetableDto {
-  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
-  private LocalTime time;
-  private String grade;
-  private String speciality;
-  private String lesson;
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+  private final LocalTime time;
+  private final String grade;
+  private final String speciality;
+  private final String lesson;
 
   public TeacherTimetableDto(String time, String grade, String speciality, String lesson) {
     this.time = parseTime(time);

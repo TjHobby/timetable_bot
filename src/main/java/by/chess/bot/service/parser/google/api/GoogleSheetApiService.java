@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GoogleSheetApiService {
 
-  private GoogleSheetsApiConfig config;
+  private final GoogleSheetsApiConfig config;
 
   public List<List<String>> getSheetContent(String spreadsheetId) {
     Sheet sheet = getSheet(spreadsheetId);

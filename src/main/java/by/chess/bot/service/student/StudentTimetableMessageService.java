@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class StudentTimetableMessageService implements TimetableMessageProvider {
-  private TimetableRepository timetableRepository;
-  private StudentRepository studentRepository;
+  private final TimetableRepository timetableRepository;
+  private final StudentRepository studentRepository;
 
   public String getTimetableMessage(long chatId, DayOfWeek day) {
     Student student = studentRepository.getStudentById(chatId);

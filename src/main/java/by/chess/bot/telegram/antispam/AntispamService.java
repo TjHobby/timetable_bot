@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AntispamService {
 
-  Map<Long, Long> users;
-  MessagesConfig messagesConfig;
+  private final Map<Long, Long> users;
+  private final MessagesConfig messagesConfig;
 
   public AntispamService(MessagesConfig messagesConfig) {
     this.messagesConfig = messagesConfig;

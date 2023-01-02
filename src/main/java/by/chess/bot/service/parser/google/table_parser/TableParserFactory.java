@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class TableParserFactory {
-  private GradesConfig config;
+  private final GradesConfig config;
 
   public TableParser createTableParser(String grade, List<List<String>> tableContent) {
     if (config.getGrades().contains(grade)) {

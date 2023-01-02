@@ -18,9 +18,9 @@ import org.telegram.telegrambots.starter.SpringWebhookBot;
 @Slf4j
 public class TimetableBot extends SpringWebhookBot {
   private final ButtonHandler buttonHandler;
-  String botPath;
-  String botUsername;
-  String botToken;
+  private String botPath;
+  private String botUsername;
+  private String botToken;
 
   public TimetableBot(SetWebhook setWebhook, ButtonHandler buttonHandler) {
     super(setWebhook);

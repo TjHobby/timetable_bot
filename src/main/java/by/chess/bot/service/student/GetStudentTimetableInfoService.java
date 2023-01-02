@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class GetStudentTimetableInfoService {
-  private TimetableRepository timetableRepository;
-  private StudentRepository studentRepository;
+  private final TimetableRepository timetableRepository;
+  private final StudentRepository studentRepository;
 
   public List<String> getGrades() {
     List<Timetable> timetables = timetableRepository.getAllTimetables();

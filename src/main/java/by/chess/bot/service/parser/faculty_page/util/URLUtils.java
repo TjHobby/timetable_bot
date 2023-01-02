@@ -11,7 +11,9 @@ public class URLUtils {
   public static String extractSpreadsheetIdFromUrl(String url) {
     Pattern pattern = Pattern.compile("(?<=/d/)[^/]*");
     Matcher matcher = pattern.matcher(url);
-    matcher.find();
+    if(!matcher.find()){
+      throw new IllegalStateException("Cannot extract url from section");
+    }
     return matcher.group();
   }
 }

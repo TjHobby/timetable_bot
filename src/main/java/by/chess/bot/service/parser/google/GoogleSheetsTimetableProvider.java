@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Slf4j
 public class GoogleSheetsTimetableProvider implements TimetableProvider {
-  private GoogleSheetApiService googleSheetApiService;
-  private FacultyPageParser facultyPageParser;
-  private TableParserFactory tableParserFactory;
+  private final GoogleSheetApiService googleSheetApiService;
+  private final FacultyPageParser facultyPageParser;
+  private final TableParserFactory tableParserFactory;
 
   public List<Timetable> getTimetables() {
     Map<String, String> gradesAndUrls = facultyPageParser.getGoogleSheetUrl();

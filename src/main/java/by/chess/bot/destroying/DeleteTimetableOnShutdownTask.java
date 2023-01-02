@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class DeleteTimetableOnShutdownTask {
-  private TimetableRepository timetableRepository;
+  private final TimetableRepository timetableRepository;
 
   @PreDestroy
   public void onShutdown() {
